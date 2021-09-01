@@ -3,20 +3,29 @@
 ## Guide d'installation
 * Pour installer et configurer le site, fais ceci dans le terminal :
 ```
-    git clone git@gitlab.com:Yasmine091/leprojet.git
-    cd leprojet/
+    git clone git@gitlab.com:Yasmine091/jbd-simplon.git
+    cd jbd-simplon/
+    sudo pip3 install -r requirements.txt
+    cd core/
+    cp example.settings.py settings.py
 ```
-* Modifie les valeurs dans le fichier nomdufichier.py
+* Modifie les valeurs dans le fichier settings.py
 * Puis reviens au terminal et fais ceci :
 ```
-
+    cd ..
+    python3 manage.py migrate
+    python3 manage.py runserver
 ```
 
 ## Dépendances
-* Techno1, techno2..
+* Django >> https://
+* PostgreSQL >> https://
+* BootStrap >>  https://
 
 ## Version en ligne
-* https://
+* https://journal-de-bord-simplon.herokuapp.com
 
 ## Ressources du projet
-* Wireframe : https://
+* MCD >> https://
+* Maquette (Desktop) >> https://
+* Maquette (Mobile) >> https://
