@@ -1,2 +1,9 @@
 venv
 core/settings.py
+core/__pycache__
+notes/__pycache__
+notes/migrations
+users/__pycache__
+users/migrations
+students/__pycache__
+students/migrations
