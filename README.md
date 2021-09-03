@@ -26,6 +26,6 @@
 * https://journal-de-bord-simplon.herokuapp.com
 
 ## Ressources du projet
-* MCD >> https://
-* Maquette (Desktop) >> https://
-* Maquette (Mobile) >> https://
+* MCD >> https://gitlab.com/Yasmine091/jbd-simplon/-/blob/master/Ressources/MCD.png
+* Maquette (Desktop) >> https://gitlab.com/Yasmine091/jbd-simplon/-/blob/master/Ressources/Wireframe_Desktop.png
+* Maquette (Mobile) >> https://gitlab.com/Yasmine091/jbd-simplon/-/blob/master/Ressources/Wireframe_Mobile.png
