@@ -5,4 +5,4 @@ def defaultHome(request):
     if request.user.is_authenticated:
         return redirect('/notes');
     else:
-        return redirect('/login');
+        return redirect('/signin');

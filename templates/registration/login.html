@@ -13,8 +13,8 @@ Connexion
     <form method="POST" class="form">
       {% csrf_token %}
       {# bootstrap_form form #}
-      {{form}}
-      <button type="submit" class="btn btn-primary">Se connecter</button>
+      {{form.as_p}}
+      <button type="submit" class="btn btn-primary fw-bold">Se connecter</button>
     </form>
 
     </p>
