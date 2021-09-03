@@ -19,12 +19,15 @@ Modification d'une note
             <p class="card-text">
             <p class="text-muted fw-bold m-0"><i class="fas fa-graduation-cap me-1 d-inline"></i>
                 <select name="student" class="form-control d-inline" required="" id="id_student" style="width: auto;">
-                    <option value="" selected="">{{note.student.lastname}} {{note.student.firstname}}</option>
                     <option value="" disabled>-- Veuillez choisir un apprenant --</option>
                     {% for student in students %}
+                    {% if student.id == note.student.id %}
+                    <option value="{{ student.id }}" selected>
+                        {% else %}
                     <option value="{{ student.id }}">
-                        {{ student.firstname }}
+                        {% endif %}
                         {{ student.lastname }}
+                        {{ student.firstname }}
                     </option>
                     {% endfor %}
                 </select>

@@ -8,9 +8,22 @@ from .forms import formulaireNote
 
 def getNotes(request):
     if request.user.is_authenticated:
-        notes = Note.objects.all()
         students = Student.objects.all()
-        return render(request, "notes.html", {"list": notes, "choi" : students})
+        if request.session['chosen_student'] and int(request.session['chosen_student']) > 0:
+            student = Student.objects.all().get(id=request.session['chosen_student'])
+            notes = Note.objects.all().filter(student=student)
+            chosen = request.session['chosen_student']
+        else:
+            chosen = request.session['chosen_student'] = 0
+            notes = Note.objects.all()
+            
+        if request.method == 'POST':
+            request.session['chosen_student'] = int(request.POST['chosen_student'])
+            chosen = request.session['chosen_student']
+            return redirect('/')
+                
+        
+        return render(request, "notes.html", {"list": notes, "students" : students, 'chosen': chosen})
     else:
         return redirect('/')
 
@@ -56,7 +69,7 @@ def editNote(request, id):
         note = Note.objects.all().get(id=id)
         form = formulaireNote(instance=note)
         if request.method == 'POST':
-            form = formulaireNote(request.POST)
+            form = formulaireNote(request.POST, instance=note)
             if form.is_valid:
                 student = Student.objects.all().get(id=request.POST['student'])
                 edit_post = form.save(commit=False)          

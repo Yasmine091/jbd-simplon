@@ -17,15 +17,12 @@ Journal
                     {% for student in students %}
                     {% if student.id == chosen %}
                     <option value="{{ student.id }}" selected>
-                        {{ student.firstname }}
-                        {{ student.lastname }}
-                    </option>
-                    {% else %}
+                        {% else %}
                     <option value="{{ student.id }}">
-                        {{ student.firstname }}
+                        {% endif %}
                         {{ student.lastname }}
+                        {{ student.firstname }}
                     </option>
-                    {% endif %}
                     {% endfor %}
                 </select>
                 <button type="submit" class="btn btn-primary fw-bold">Trier</button>
@@ -34,14 +31,15 @@ Journal
         <p class="card-text">
 
         {% if messages %}
-        <div class="alert alert-success" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {% for message in messages %}
             <i class="fas fa-info-circle me-1"></i>{{message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
             {% endfor %}
         </div>
         {% endif %}
 
-        
+
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
             {% for note in list %}
