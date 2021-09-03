@@ -27,3 +27,25 @@ img.logo {
 div.card.border.border-2 {
     border-color: #f0f0f0 !important;
 }
+
+input.date-input {
+    display: block;
+    width: auto;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 2px solid #f0f0f0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.form-control {
+    border: 2px solid #f0f0f0 !important;
+}

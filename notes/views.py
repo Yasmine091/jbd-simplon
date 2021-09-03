@@ -8,7 +8,8 @@ from .forms import formulaireNote
 def getNotes(request):
     if request.user.is_authenticated:
         notes = Note.objects.all()
-        return render(request, "notes.html", {"list": notes})
+        students = Student.objects.all()
+        return render(request, "notes.html", {"list": notes, "choi" : students})
     else:
         return redirect('/')
 
@@ -20,7 +21,9 @@ def newNote(request):
         if request.method == 'POST':
             form = formulaireNote(request.POST)
             if form.is_valid:
-                form.save()
+                new_post = form.save(commit=False)
+                new_post.author = request.user
+                new_post.save()
             return render(request, "new.html", {"form": form, "msg": "Note enregistrée avec succès!"})
             
         return render(request, "new.html", {"form": form})

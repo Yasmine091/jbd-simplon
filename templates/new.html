@@ -16,8 +16,10 @@ Rédaction
             {% endif %}
             <form method="post" class="form">
                 {% csrf_token %}
-                {{form}}
-                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                {{form.as_p}}
+                <p>
+                    <button type="submit" class="btn btn-primary fw-bold">Enregistrer</button>
+                </p>
             </form>
         </p>
     </div>
