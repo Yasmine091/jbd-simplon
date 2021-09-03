@@ -7,30 +7,64 @@ Journal
 {% block content %}
 <div class="card border-0 mx-auto" style="max-width: 50rem; width: 100%;">
     <div class="card-body">
-        <h5 class="card-title fw-bold m-1">Journal de bord</h5>
+        <form method="post" class="form d-flex flex-column-reverse flex-sm-row justify-content-between">
+            <h5 class="card-title fw-bold m-1">Journal de bord</h5>
+            {% csrf_token %}
+            <p>
+                <select name="chosen_student" id="chosen_student" class="form-control d-inline">
+                    <option value="0">Voir toutes les notes</option>
+                    <option value="" disabled>-- Veuillez choisir un apprenant --</option>
+                    {% for student in students %}
+                    {% if student.id == chosen %}
+                    <option value="{{ student.id }}" selected>
+                        {{ student.firstname }}
+                        {{ student.lastname }}
+                    </option>
+                    {% else %}
+                    <option value="{{ student.id }}">
+                        {{ student.firstname }}
+                        {{ student.lastname }}
+                    </option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-primary fw-bold">Trier</button>
+            </p>
+        </form>
         <p class="card-text">
 
+        {% if messages %}
+        <div class="alert alert-success" role="alert">
+            {% for message in messages %}
+            <i class="fas fa-info-circle me-1"></i>{{message}}
+            {% endfor %}
+        </div>
+        {% endif %}
 
+        
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
             {% for note in list %}
-            <div class="col">
-                <div class="card border border-2">
+            <a href="{% url 'readOne' note.id %}">
+                <div class="col">
+                    <div class="card border border-2">
 
-                    <div class="card-body">
-                        <h5 class="card-title text-dark fw-bold"><i class="far fa-calendar-alt me-1"></i>{{note.date|date:"d/m/Y" }}</h5>
-                        <p class="text-muted fw-bold"><i class="fas fa-user me-1"></i>{{note.author}}</p>
+                        <div class="card-body">
+                            <h5 class="card-title text-dark fw-bold"><i
+                                    class="far fa-calendar-alt me-1"></i>{{note.date|date:"d/m/Y" }}</h5>
+                            <p class="text-muted fw-bold"><i class="fas fa-user me-1"></i>{{note.author}}</p>
                             <hr />
                             <p class="card-text text-dark fw-bold"><i
-                                class="fas fa-info-circle me-1"></i>{{note.subject}}</p>
-                            <p class="card-text text-dark">{{note.note}}</p>
+                                    class="fas fa-info-circle me-1"></i>{{note.subject}}
+                            </p>
+                            <p class="card-text text-dark">{{ note.note }}</p>
                             <p class="text-muted fw-bold m-0"><i
-                                        class="fas fa-graduation-cap me-1"></i>{{note.student.lastname}}
-                                    {{note.student.firstname}}</p>
+                                    class="fas fa-graduation-cap me-1"></i>{{note.student.lastname}}
+                                {{note.student.firstname}}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-
+            </a>
             {% endfor %}
 
         </div>
