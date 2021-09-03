@@ -1,0 +1,29 @@
+body {
+    background-color: #f0f0f0 !important;
+    font-family: 'Nunito Sans', inherit !important;
+}
+
+nav.bg-red-simplon {
+    background-color: #ce0033;
+    font-family: inherit;
+}
+
+li.nav-item {
+    padding: 0rem 1.6rem;
+}
+
+li.nav-item:hover {
+    background-color: #a50029;
+}
+
+li>.nav-link {
+    padding: 1.1rem;
+}
+
+img.logo {
+    width: 3rem;
+}
+
+div.card.border.border-2 {
+    border-color: #f0f0f0 !important;
+}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+Rédaction
+{% endblock %}
+
+{% block content %}
+<div class="card border-0 mx-auto" style="max-width: 50rem; width: 100%;">
+    <div class="card-body">
+        <h5 class="card-title fw-bold m-1">Rédiger une note</h5>
+        <p class="card-text">
+            {% if msg %}
+            <div class="alert alert-success" role="alert">
+                <i class="fas fa-info-circle me-1"></i>{{msg}}
+              </div>
+            {% endif %}
+            <form method="post" class="form">
+                {% csrf_token %}
+                {{form}}
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </form>
+        </p>
+    </div>
+</div>
+{% endblock %}

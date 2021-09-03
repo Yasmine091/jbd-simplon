@@ -1,0 +1,73 @@
+
+{% load bootstrap5 %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="{% static 'img/favicon.ico' %}" />
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap">
+  <script src="https://kit.fontawesome.com/a266ecec7b.js" crossorigin="anonymous"></script>
+  {# Load CSS and JavaScript #}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  <title>Simplon - {% block title %}
+    {% endblock %}</title>
+</head>
+
+<body>
+  {% if user.is_authenticated %}
+  <nav class="navbar navbar-expand-lg navbar-dark fw-bold bg-red-simplon py-0">
+    <div class="container-fluid">
+      <img src="{% static 'img/logo.svg' %}" class="navbar-brand logo">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'readAll' %}">Journal</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'create' %}">Rédiger</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <div class="nav-link active">
+              {{ user.email }}
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/logout">Déconnexion</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% endif %}
+
+  <div class="container">
+    <div class="row py-5">
+      <div class="col">
+
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
