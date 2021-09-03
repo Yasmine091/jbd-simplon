@@ -9,10 +9,12 @@ Note
     <div class="card-body">
         <div class="form d-flex flex-column-reverse flex-sm-row justify-content-between">
             <h5 class="card-title fw-bold m-1">Note</h5>
+            {% if note.author.id == user.id %}
             <p>
                 <a href="{% url 'delete' note.id %}" class="btn btn-danger fw-bold"><i class="fas fa-trash-alt"></i></a>
                 <a href="{% url 'update' note.id %}" class="btn btn-primary fw-bold"><i class="fas fa-pencil-alt"></i></a>
             </p>
+            {% endif %}
         </div>
 
         {% if messages %}

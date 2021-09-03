@@ -1,6 +1,6 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
-from .forms import forms
+from .forms import UserLoginForm
 from users import views
 
 urlpatterns = [
@@ -10,8 +10,10 @@ urlpatterns = [
         'login/',
         LoginView.as_view(
             template_name="login.html",
-            authentication_form=forms
+            authentication_form=UserLoginForm
         ),
         name='login'
-    )
+    ),
+    path('signout/', views.logoutPage, name='signout')
+    
 ]

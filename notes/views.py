@@ -14,11 +14,12 @@ def getNotes(request):
             request.session['chosen_student']
         except:
             request.session['chosen_student'] = 0
-            notes = Note.objects.all()
             
         if int(request.session['chosen_student']) > 0:
             student = Student.objects.all().get(id=request.session['chosen_student'])
-            notes = Note.objects.all().filter(student=student)
+            notes = Note.objects.all().filter(student=student).order_by('-id')
+        else:
+            notes = Note.objects.all().order_by('-id')
             
         if request.method == 'POST':
             request.session['chosen_student'] = int(request.POST['chosen_student'])
@@ -67,7 +68,8 @@ def getNote(request, id):
         return redirect('/')
     
 def editNote(request, id):
-    if request.user.is_authenticated:
+    note = Note.objects.all().get(id=id)
+    if request.user.is_authenticated and note.author.id == request.user.id:
         students = Student.objects.all()
         note = Note.objects.all().get(id=id)
         form = formulaireNote(instance=note)
@@ -89,8 +91,8 @@ def editNote(request, id):
         return redirect('/')
     
 def delNote(request, id):
-    if request.user.is_authenticated:
-        note = Note.objects.all().get(id=id)
+    note = Note.objects.all().get(id=id)
+    if request.user.is_authenticated and note.author.id == request.user.id:
         note.delete()
         messages.success(request, 'Note suprimée avec succès!')
         return redirect('/notes')

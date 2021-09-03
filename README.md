@@ -24,6 +24,10 @@
 
 ## Version en ligne
 * https://journal-de-bord-simplon.herokuapp.com
+* Compte de démonstration
+```
+    a.coincoin@simplon.co:coin1234
+```
 
 ## Ressources du projet
 * MCD >> https://gitlab.com/Yasmine091/jbd-simplon/-/blob/master/Ressources/MCD.png
