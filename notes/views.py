@@ -4,8 +4,8 @@ from notes.models import Note
 from students.models import Student
 from .forms import formulaireNote
 
-# Create your views here.
 
+# Note views
 def getNotes(request):
     if request.user.is_authenticated:
         students = Student.objects.all()
@@ -38,11 +38,16 @@ def newNote(request):
         #notes = Note.objects.all()
         if request.method == 'POST':
             form = formulaireNote(request.POST)
-            if form.is_valid:
-                new_post = form.save(commit=False)
-                new_post.author = request.user
-                new_post.save()
-            return render(request, "new.html", {"form": form, "msg": "Note enregistrée avec succès!"})
+            if form.is_valid():
+                form.save(commit=False)
+                def_note = Note.objects.create(
+                    author=request.user,
+                    date=request.POST['date'],
+                    note=request.POST['note'],
+                    subject=request.POST['subject'],
+                )
+                def_note.student.set(request.POST.getlist('student'))
+                return render(request, "new.html", {"form": form, "msg": "Note enregistrée avec succès!"})
             
         return render(request, "new.html", {"form": form})
     
@@ -53,15 +58,6 @@ def getNote(request, id):
     
     if request.user.is_authenticated:
         note = Note.objects.all().get(id=id)
-        form = formulaireNote()
-        #notes = Note.objects.all()
-        if request.method == 'POST':
-            form = formulaireNote(request.POST)
-            if form.is_valid:
-                new_post = form.save(commit=False)
-                new_post.author = request.user
-                new_post.save()
-                
         return render(request, "note.html", {"note": note})
     
     else:
@@ -71,22 +67,25 @@ def editNote(request, id):
     note = Note.objects.all().get(id=id)
     if request.user.is_authenticated and note.author.id == request.user.id:
         students = Student.objects.all()
-        note = Note.objects.all().get(id=id)
+        chosen = []
+        for student in note.student.all():
+            chosen.append(student.id)
+            
         form = formulaireNote(instance=note)
         if request.method == 'POST':
             form = formulaireNote(request.POST, instance=note)
             if form.is_valid:
-                student = Student.objects.all().get(id=request.POST['student'])
-                edit_post = form.save(commit=False)          
-                edit_post.author = request.user
-                edit_post.student = student
-                edit_post.subject = request.POST['subject']
-                edit_post.note = request.POST['note']
-                edit_post.date = request.POST['date']
-                edit_post.save()
+                form.save(commit=False)
+                def_note = Note.objects.get(id=id)
+                def_note.author=request.user
+                def_note.date=request.POST['date']
+                def_note.note=request.POST['note']
+                def_note.subject=request.POST['subject']
+                def_note.student.set(request.POST.getlist('student'))
+                def_note.save()
                 messages.success(request, 'Note modifiée avec succès!')
                 return redirect('/note/'+ str(id))
-        return render(request, "edit.html", {"note": note, "students": students})
+        return render(request, "edit.html", {"note": note, "students": students, "chosen": chosen})
     else:
         return redirect('/')
     

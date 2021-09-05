@@ -9,7 +9,7 @@
     cd core/
     cp example.settings.py settings.py
 ```
-* Modifie les valeurs dans le fichier settings.py
+* Modifie les valeurs dans le fichier settings.py à la ligne 84
 * Puis reviens au terminal et fais ceci :
 ```
     cd ..

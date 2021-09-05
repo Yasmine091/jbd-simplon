@@ -72,3 +72,7 @@ hr {
     color: #bdbdbd;
     border: 2px solid #bdbdbd !important;
 }
+
+#id_student {
+    resize: vertical;
+}
